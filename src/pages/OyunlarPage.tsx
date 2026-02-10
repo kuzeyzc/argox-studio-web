@@ -10,13 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { PrecisionGame } from "@/components/games/PrecisionGame";
 import { InkMixGame } from "@/components/games/InkMixGame";
-import tattoo1 from "@/assets/tattoo-1.jpg";
-import tattoo2 from "@/assets/tattoo-2.jpg";
-import tattoo3 from "@/assets/tattoo-3.jpg";
-import tattoo4 from "@/assets/tattoo-4.jpg";
-import tattoo6 from "@/assets/tattoo-6.jpg";
-
-const FALLBACK_IMAGES = [tattoo1, tattoo2, tattoo3, tattoo4, tattoo6, tattoo1];
+const FALLBACK_IMAGES = ["/tattoo-1.jpg", "/tattoo-2.jpg", "/tattoo-3.jpg", "/tattoo-4.jpg", "/tattoo-6.jpg", "/tattoo-1.jpg"];
 
 const STORAGE_DISCOUNT_KEY = "argox_discount";
 /** Aynı oyundan tekrar kod almayı engellemek için kullanılan oyun id listesi */

@@ -1,12 +1,3 @@
-import tattoo1 from "@/assets/tattoo-1.jpg";
-import tattoo2 from "@/assets/tattoo-2.jpg";
-import tattoo3 from "@/assets/tattoo-3.jpg";
-import tattoo4 from "@/assets/tattoo-4.jpg";
-import tattoo6 from "@/assets/tattoo-6.jpg";
-import artist1 from "@/assets/artist-1.jpg";
-import artist2 from "@/assets/artist-2.jpg";
-import artist3 from "@/assets/artist-3.jpg";
-
 export interface TattooWork {
   id: string;
   image: string;
@@ -201,14 +192,14 @@ export const defaultValuesItems: ValueItem[] = [
 ];
 
 export const tattooWorks: TattooWork[] = [
-  { id: "1", image: tattoo1, title: "Ejderha Kol", artistName: "Kaan Vural", artistId: "kaan", category: "Dövme" },
-  { id: "2", image: tattoo2, title: "Kutsal Geometri", artistName: "Elif Noir", artistId: "elif", category: "Dövme" },
-  { id: "3", image: tattoo3, title: "Neo Geleneksel Gül", artistName: "Deniz Kara", artistId: "deniz", category: "Dövme" },
-  { id: "4", image: tattoo4, title: "Botanik Blackwork", artistName: "Elif Noir", artistId: "elif", category: "Sanat" },
-  { id: "5", image: tattoo6, title: "Mandala Sırt", artistName: "Kaan Vural", artistId: "kaan", category: "Dövme" },
-  { id: "6", image: tattoo1, title: "Japon Irezumi", artistName: "Deniz Kara", artistId: "deniz", category: "Dövme" },
-  { id: "7", image: tattoo3, title: "Kafatası & Güller", artistName: "Kaan Vural", artistId: "kaan", category: "Sanat" },
-  { id: "8", image: tattoo2, title: "Geometrik Yıldız", artistName: "Elif Noir", artistId: "elif", category: "Dövme" },
+  { id: "1", image: "/tattoo-1.jpg", title: "Ejderha Kol", artistName: "Kaan Vural", artistId: "kaan", category: "Dövme" },
+  { id: "2", image: "/tattoo-2.jpg", title: "Kutsal Geometri", artistName: "Elif Noir", artistId: "elif", category: "Dövme" },
+  { id: "3", image: "/tattoo-3.jpg", title: "Neo Geleneksel Gül", artistName: "Deniz Kara", artistId: "deniz", category: "Dövme" },
+  { id: "4", image: "/tattoo-4.jpg", title: "Botanik Blackwork", artistName: "Elif Noir", artistId: "elif", category: "Sanat" },
+  { id: "5", image: "/tattoo-6.jpg", title: "Mandala Sırt", artistName: "Kaan Vural", artistId: "kaan", category: "Dövme" },
+  { id: "6", image: "/tattoo-1.jpg", title: "Japon Irezumi", artistName: "Deniz Kara", artistId: "deniz", category: "Dövme" },
+  { id: "7", image: "/tattoo-3.jpg", title: "Kafatası & Güller", artistName: "Kaan Vural", artistId: "kaan", category: "Sanat" },
+  { id: "8", image: "/tattoo-2.jpg", title: "Geometrik Yıldız", artistName: "Elif Noir", artistId: "elif", category: "Dövme" },
 ];
 
 export const artists: Artist[] = [
@@ -217,7 +208,7 @@ export const artists: Artist[] = [
     name: "Kaan Vural",
     slug: "kaan-vural",
     specialty: "Japon & Blackwork",
-    image: artist1,
+    image: "/artist-1.jpg",
     bannerVideoUrl: "",
     bio: "12 yılı aşkın deneyimiyle Kaan, Japon Irezumi ve cesur blackwork sanatında ustalaşmıştır. Eserleri dinamik kompozisyonlar ve derin kültürel hikâye anlatımlarıyla karakterize edilir. Avrupa ve Asya'daki uluslararası dövme konvansiyonlarında yer almıştır.",
     experience: "12+ yıl",
@@ -232,7 +223,7 @@ export const artists: Artist[] = [
     name: "Elif Noir",
     slug: "elif-noir",
     specialty: "İnce Çizgi & Geometrik",
-    image: artist2,
+    image: "/artist-2.jpg",
     bannerVideoUrl: "",
     bio: "Elif, deri sanatına matematiksel bir hassasiyet getiriyor. İnce çizgi ve kutsal geometri konusunda uzmanlaşmış eserleri, desen ve simetrinin karmaşık keşifleridir. Berlin Dövme Sanatı Okulu'nda eğitim almış ve Avrupa estetiğini sanatına yansıtmaktadır.",
     experience: "8+ yıl",
@@ -247,7 +238,7 @@ export const artists: Artist[] = [
     name: "Deniz Kara",
     slug: "deniz-kara",
     specialty: "Neo Geleneksel & Renkli",
-    image: artist3,
+    image: "/artist-3.jpg",
     bannerVideoUrl: "",
     bio: "Deniz, neo-geleneksel dövme sanatının sınırlarını zorlayan cesur bir renk ustasıdır. Canlı paletleri ve dramatik kompozisyonlarıyla tanınır; klasik motifleri çağdaş başyapıtlara dönüştürür. İstanbul Dövme Konvansiyonu'nda birçok ödül kazanmıştır.",
     experience: "10+ yıl",
@@ -279,7 +270,7 @@ export const services: ServiceItem[] = [
   { id: "s4", title: "Danışmanlık", description: "Seçtiğiniz sanatçıyla birebir ücretsiz görüşme. Yerleşim, boyut, stil ve özel fiyat teklifi.", icon: "MessageSquare", price: "Ücretsiz" },
 ];
 
-export const marqueeImages = [tattoo1, tattoo2, tattoo3, tattoo4, tattoo6, tattoo1, tattoo3, tattoo2];
+export const marqueeImages = ["/tattoo-1.jpg", "/tattoo-2.jpg", "/tattoo-3.jpg", "/tattoo-4.jpg", "/tattoo-6.jpg", "/tattoo-1.jpg", "/tattoo-3.jpg", "/tattoo-2.jpg"];
 
 export const getArtistById = (id: string): Artist | undefined => artists.find((a) => a.id === id);
 
@@ -295,12 +286,12 @@ export interface HistoryTimelineItem {
 
 /** Varsayılan timeline (DB boşken veya fallback; artık TarihcePage context'ten order_index ile çeker) */
 export const defaultHistoryTimeline: HistoryTimelineItem[] = [
-  { id: "h1", year: "MÖ 3300", title: "İlk İzler", description: "Ötzi Buzul Adamı'nda bulunan 61 dövme, bilinen en eski deri sanatı örnekleridir.", imageUrl: tattoo1, orderIndex: 0 },
-  { id: "h2", year: "MÖ 2000", title: "Mısır Geleneği", description: "Antik Mısır'da kadın mumyalarda bulunan dövmeler, doğurganlık ve koruma ritüelleriyle ilişkilendirilmiştir.", imageUrl: tattoo2, orderIndex: 1 },
-  { id: "h3", year: "300", title: "Polinezya Kökenleri", description: "Tiki kültürü ve kabile gelenekleri, dövmeyi toplumsal statü ve ruhani güç sembolü olarak kullanmıştır.", imageUrl: tattoo3, orderIndex: 2 },
-  { id: "h4", year: "1700", title: "Japon Irezumi", description: "Edo dönemi Japonya'sında dövme sanatı, ahşap baskı ustalarının tekniklerinden esinlenerek doruk noktasına ulaşmıştır.", imageUrl: tattoo4, orderIndex: 3 },
-  { id: "h5", year: "1891", title: "Elektrikli Makine", description: "Samuel O'Reilly'nin ilk elektrikli dövme makinesi patenti, modern dövme çağını başlatmıştır.", imageUrl: tattoo6, orderIndex: 4 },
-  { id: "h6", year: "2020+", title: "Dijital Çağ", description: "Sosyal medya ve dijital tasarım araçları, dövme sanatını küresel bir ifade biçimine dönüştürmüştür.", imageUrl: tattoo1, orderIndex: 5 },
+  { id: "h1", year: "MÖ 3300", title: "İlk İzler", description: "Ötzi Buzul Adamı'nda bulunan 61 dövme, bilinen en eski deri sanatı örnekleridir.", imageUrl: "/tattoo-1.jpg", orderIndex: 0 },
+  { id: "h2", year: "MÖ 2000", title: "Mısır Geleneği", description: "Antik Mısır'da kadın mumyalarda bulunan dövmeler, doğurganlık ve koruma ritüelleriyle ilişkilendirilmiştir.", imageUrl: "/tattoo-2.jpg", orderIndex: 1 },
+  { id: "h3", year: "300", title: "Polinezya Kökenleri", description: "Tiki kültürü ve kabile gelenekleri, dövmeyi toplumsal statü ve ruhani güç sembolü olarak kullanmıştır.", imageUrl: "/tattoo-3.jpg", orderIndex: 2 },
+  { id: "h4", year: "1700", title: "Japon Irezumi", description: "Edo dönemi Japonya'sında dövme sanatı, ahşap baskı ustalarının tekniklerinden esinlenerek doruk noktasına ulaşmıştır.", imageUrl: "/tattoo-4.jpg", orderIndex: 3 },
+  { id: "h5", year: "1891", title: "Elektrikli Makine", description: "Samuel O'Reilly'nin ilk elektrikli dövme makinesi patenti, modern dövme çağını başlatmıştır.", imageUrl: "/tattoo-6.jpg", orderIndex: 4 },
+  { id: "h6", year: "2020+", title: "Dijital Çağ", description: "Sosyal medya ve dijital tasarım araçları, dövme sanatını küresel bir ifade biçimine dönüştürmüştür.", imageUrl: "/tattoo-1.jpg", orderIndex: 5 },
 ];
 
 export const quizQuestions = [

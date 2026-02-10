@@ -1,4 +1,3 @@
-import tattoo1 from "@/assets/tattoo-1.jpg";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useStudioData } from "@/hooks/useStudioData";
@@ -34,7 +33,7 @@ const Hero = () => {
           muted
           loop
           playsInline
-          poster={tattoo1}
+          poster="/tattoo-1.jpg"
           aria-label="ArgoX studio background"
         >
           <source src="/hero-bg.mp4" type="video/mp4" />
