@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useStudioData } from "@/hooks/useStudioData";
@@ -8,8 +9,19 @@ const MARQUEE_BASE_DURATION = 25;
 const MARQUEE_DURATION_PER_ITEM = 1.5;
 
 const Hero = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const { data } = useStudioData();
   const { hero: h, tattooWorks } = data;
+
+  // Düşük güç modu / mobil: otomatik oynatma engellendiğinde programatik play dene
+  useEffect(() => {
+    const video = videoRef.current ?? document.querySelector("section video");
+    if (video) {
+      video.play().catch(() => {
+        console.log("Otomatik oynatma engellendi, poster gösteriliyor.");
+      });
+    }
+  }, []);
   const dövmeWorks = tattooWorks.filter((w) => w.category === "Dövme").slice(0, MARQUEE_MAX);
   const marqueeItems = dövmeWorks.length > 0 ? dövmeWorks : [];
   const repeated =
@@ -25,20 +37,23 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen overflow-hidden">
-      {/* Background video */}
-      <div className="absolute inset-0">
+      {/* Background video: z-0 ile arkada kalır; overlay z-[1] ile videonun üstünde */}
+      <div className="absolute inset-0 z-0">
         <video
-          className="h-full w-full object-cover blur-sm scale-105"
+          ref={videoRef}
+          className="h-full w-full object-cover blur-sm scale-105 relative z-0"
           autoPlay
           muted
           loop
           playsInline
+          preload="auto"
           poster="/tattoo-1.jpg"
           aria-label="ArgoX studio background"
         >
+          <source src="/hero-bg.webm" type="video/webm" />
           <source src="/hero-bg.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-black/50" aria-hidden />
+        <div className="absolute inset-0 z-[1] bg-black/50" aria-hidden />
       </div>
 
       {/* Foreground content: pointer-events-none so marquee (z-10) receives clicks at bottom */}
