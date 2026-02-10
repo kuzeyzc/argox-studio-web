@@ -8,19 +8,57 @@ const MARQUEE_REPEAT = 4;
 const MARQUEE_BASE_DURATION = 25;
 const MARQUEE_DURATION_PER_ITEM = 1.5;
 
+const HERO_VIDEO_MP4 = "/hero-bg.mp4";
+const HERO_VIDEO_WEBM = "/hero-bg.webm";
+/** Videonun ilk karesiyle uyumlu arka plan (yüklenirken siyah boşluk önlenir) */
+const HERO_VIDEO_BG = "#18181b";
+
 const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const forcePlayUsed = useRef(false);
   const { data } = useStudioData();
   const { hero: h, tattooWorks } = data;
 
-  // Düşük güç modu / mobil: otomatik oynatma engellendiğinde programatik play dene
-  useEffect(() => {
-    const video = videoRef.current ?? document.querySelector("section video");
-    if (video) {
-      video.play().catch(() => {
+  const tryPlay = (video: HTMLVideoElement) => {
+    const p = video.play();
+    if (p && typeof p.catch === "function") {
+      p.catch(() => {
         console.log("Otomatik oynatma engellendi, poster gösteriliyor.");
       });
     }
+  };
+
+  // Intersection Observer: videoyu sadece görünürken oynat (mobilde viewport dışındayken play reddedilir)
+  useEffect(() => {
+    const video = videoRef.current;
+    const container = containerRef.current;
+    if (!video || !container) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [e] = entries;
+        if (!e) return;
+        if (e.isIntersecting) tryPlay(video);
+        else video.pause();
+      },
+      { threshold: 0.1, rootMargin: "0px" }
+    );
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
+  // İlk dokunuşta (touchstart) videoyu zorla oynat; bir kez kullanılıp kaldırılır
+  useEffect(() => {
+    const handleFirstTouch = () => {
+      if (forcePlayUsed.current) return;
+      forcePlayUsed.current = true;
+      const video = videoRef.current ?? document.querySelector("section video");
+      if (video) tryPlay(video);
+      window.removeEventListener("touchstart", handleFirstTouch, { passive: true });
+    };
+    window.addEventListener("touchstart", handleFirstTouch, { passive: true });
+    return () => window.removeEventListener("touchstart", handleFirstTouch);
   }, []);
   const dövmeWorks = tattooWorks.filter((w) => w.category === "Dövme").slice(0, MARQUEE_MAX);
   const marqueeItems = dövmeWorks.length > 0 ? dövmeWorks : [];
@@ -37,8 +75,12 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen overflow-hidden">
-      {/* Background video: z-0 ile arkada kalır; overlay z-[1] ile videonun üstünde */}
-      <div className="absolute inset-0 z-0">
+      {/* Background video: public'taki /hero-bg.* ; arka plan rengi ilk kareyle uyumlu */}
+      <div
+        ref={containerRef}
+        className="absolute inset-0 z-0"
+        style={{ backgroundColor: HERO_VIDEO_BG }}
+      >
         <video
           ref={videoRef}
           className="h-full w-full object-cover blur-sm scale-105 relative z-0"
@@ -50,10 +92,14 @@ const Hero = () => {
           poster="/tattoo-1.jpg"
           aria-label="ArgoX studio background"
         >
-          <source src="/hero-bg.webm" type="video/webm" />
-          <source src="/hero-bg.mp4" type="video/mp4" />
+          <source src={HERO_VIDEO_WEBM} type="video/webm" />
+          <source src={HERO_VIDEO_MP4} type="video/mp4" />
+          Tarayıcınız video etiketini desteklemiyor.
         </video>
-        <div className="absolute inset-0 z-[1] bg-black/50" aria-hidden />
+        <div
+          className="absolute inset-0 z-[1] bg-black/50 pointer-events-none"
+          aria-hidden
+        />
       </div>
 
       {/* Foreground content: pointer-events-none so marquee (z-10) receives clicks at bottom */}
